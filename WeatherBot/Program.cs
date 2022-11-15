@@ -1,8 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Telegram.Bot;
-using WeatherBot.Commands;
-using WeatherBot.Services;
+using WeatherBot.Services.Command;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -15,10 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
     await telegramBotClient.SetWebhookAsync(webHookUrl);
 
     builder.Services
-        .AddScoped<ICommandExecutor, CommandExecutor>()
-        .AddSingleton<ITelegramBotClient>(telegramBotClient)
-        .AddSingleton<ICommand, HelloCommand>();
-    
+        .AddScoped<ICommandService, CommandService>()
+        .AddSingleton<ITelegramBotClient>(telegramBotClient);
+
     builder.Services.AddControllers().AddNewtonsoftJson(options =>
     {
         var settings = options.SerializerSettings;

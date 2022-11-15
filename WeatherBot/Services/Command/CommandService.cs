@@ -2,26 +2,26 @@
 using Telegram.Bot.Types;
 using WeatherBot.Commands;
 
-namespace WeatherBot.Services;
+namespace WeatherBot.Services.Command;
 
-public class CommandExecutor : ICommandExecutor
+public class CommandService : ICommandService
 {
     private readonly ICommand _command;
     private readonly IReadOnlyCollection<ICommand> _commands;
 
-    public CommandExecutor(ITelegramBotClient telegramBotClient)
+    public CommandService(ITelegramBotClient telegramBotClient)
     {
-        //todo
-        _command = new StartCommand();
+        _command = new StartCommand(telegramBotClient);
         _commands = new ICommand[]
         {
-            new HelloCommand()
+            new HelloCommand(telegramBotClient),
+            new StartCommand(telegramBotClient)
         };  
     }
 
     public ICommand Execute(Message message)
     {
-        //todo
+        
         var messageText = message.Text;
         var command = _commands.SingleOrDefault(c => c.Name == messageText);
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
-using WeatherBot.Services;
+using WeatherBot.Services.Command;
 
 namespace WeatherBot.Controllers;
 
@@ -8,25 +8,24 @@ namespace WeatherBot.Controllers;
 [ApiController]
 public class WeatherBotController : ControllerBase
 {
-    private readonly ICommandExecutor _commandExecutor;
+    private readonly ICommandService _commandService;
 
-    public WeatherBotController(ICommandExecutor commandExecutor)
+    public WeatherBotController(ICommandService commandService)
     {
-        _commandExecutor = commandExecutor;
+        _commandService = commandService;
     }
 
     [HttpPost]
     public async Task<IActionResult> Update([FromBody] Update update)
     {
         var message = update.Message;
-
-        //todo
+        
         if (message != null)
         {
-            var command = _commandExecutor.Execute(message);
+            var command = _commandService.Execute(message);
             await command.ExecuteAsync(message);
         }
         
-        return Ok("123");
+        return Ok("");
     }
 }

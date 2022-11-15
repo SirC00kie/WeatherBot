@@ -1,9 +1,9 @@
 ﻿using Telegram.Bot.Types;
 using WeatherBot.Commands;
 
-namespace WeatherBot.Services;
+namespace WeatherBot.Services.Command;
 
-public interface ICommandExecutor
+public interface ICommandService
 {
     ICommand Execute(Message message);
 }
