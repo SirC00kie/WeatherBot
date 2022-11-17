@@ -10,15 +10,13 @@ public class CommandService : ICommandService
     private readonly ICommand _command;
     private readonly IReadOnlyCollection<ICommand> _commands;
 
-    //TODO: Edit WeatherCommand
-    public CommandService(ITelegramBotClient telegramBotClient, IWeatherService weatherService)
+    public CommandService(IWeatherService weatherService)
     {
-        _command = new StartCommand(telegramBotClient);
+        _command = new BaseCommand();
         _commands = new ICommand[]
         {
-            new HelloCommand(telegramBotClient),
-            new StartCommand(telegramBotClient),
-            //new WeatherCommand(telegramBotClient, weatherService)
+            new HelloCommand(),
+            new WeatherCommand(weatherService)
         };  
     }
 
@@ -26,8 +24,9 @@ public class CommandService : ICommandService
     {
         
         var messageText = message.Text;
-        var command = _commands.SingleOrDefault(c => c.Name == messageText.Substring(0, c.Name.Length));
-
+        var command = _commands.SingleOrDefault(c => c.Name.Length <= messageText.Length &&
+                                                     c.Name == messageText.Substring(0, c.Name.Length));
+        
         if (command != null)
         {
             return command;

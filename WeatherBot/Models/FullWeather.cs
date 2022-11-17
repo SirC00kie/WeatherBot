@@ -8,7 +8,7 @@ public class FullWeather
     public string Name { get; set; } = null!;
 
     [JsonProperty("weather", Required = Required.Always)]
-    public Weather Weather { get; set; } = null!;
+    public IEnumerable<Weather> Weather { get; set; } = null!;
 
     [JsonProperty("main", Required = Required.Always)]
     public Main Main { get; set; } = null!;
