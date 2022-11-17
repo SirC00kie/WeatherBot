@@ -3,6 +3,8 @@
 Бот для Telegram'a, показывающий погоду в нужном городе.
 
 .net 6 + [Telegram.Bot](https://github.com/TelegramBots/Telegram.Bot).
+
+Погода с [OpenWeather](https://openweathermap.org/)
 > ### Скриншоты
 >
 > ![image](https://user-images.githubusercontent.com/32567663/202551270-ee55d05f-1eba-4306-a1c4-24661d069859.png)
